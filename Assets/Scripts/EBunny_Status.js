@@ -26,7 +26,7 @@ function ApplyDamage(damage: float){
 
 	health -= damage;
 	
-	animation.Play("EBunny_Hit");
+	GetComponent.<Animation>().Play("EBunny_Hit");
 
 	//check health and call Die if need to
 	if(!dead && health <= 0)
@@ -40,18 +40,18 @@ function ApplyDamage(damage: float){
 function Die ()
 {	
 	
-	animation.Stop();
-	animation.Play("EBunny_Death");
+	GetComponent.<Animation>().Stop();
+	GetComponent.<Animation>().Play("EBunny_Death");
 	
 	Destroy(gameObject.GetComponent(EBunny_AIController));
-	yield WaitForSeconds(animation["EBunny_Death"].length - 0.5);
+	yield WaitForSeconds(GetComponent.<Animation>()["EBunny_Death"].length - 0.5);
 	
 	//Play effects
 	PlayEffects();
 	if(deathSound)
 	{
-		audio.clip = deathSound;
-		audio.Play();
+		GetComponent.<AudioSource>().clip = deathSound;
+		GetComponent.<AudioSource>().Play();
 	}
 		
 	//Cache location of dead body for pickups

@@ -37,11 +37,11 @@ function OnTriggerEnter(collider: Collider){
 // Make sure the pickup is setup properly with a collider-----------------------------------------------------------------
 function Reset ()
 {
-	if (collider == null)	
+	if (GetComponent.<Collider>() == null)	
 	{
 		gameObject.AddComponent(SphereCollider);
 	}
-	collider.isTrigger = true;
+	GetComponent.<Collider>().isTrigger = true;
 	
 	sparkleEmitter.emit = true;
 }

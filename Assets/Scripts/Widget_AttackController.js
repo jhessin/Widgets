@@ -31,15 +31,15 @@ function Update ()
 function DidAttack ()
 {
 	//Play the animation regardless of whether we hit something or not.
-	animation.CrossFadeQueued("Taser", 0.1, QueueMode.PlayNow);
+	GetComponent.<Animation>().CrossFadeQueued("Taser", 0.1, QueueMode.PlayNow);
 	yield WaitForSeconds(attackHitTime);
 	
 	//Play effects
 	PlayParticles();
 	if(attackSound)
 	{
-		audio.clip = attackSound;
-		audio.Play();
+		GetComponent.<AudioSource>().clip = attackSound;
+		GetComponent.<AudioSource>().Play();
 	}
 	ourLocation = transform.TransformPoint(attackPosition);
 	enemies = GameObject.FindGameObjectsWithTag("Enemy");

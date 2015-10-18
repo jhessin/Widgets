@@ -30,8 +30,8 @@ function ApplyDamage(damage: float){
 	//play hit sound if it exists
 	if(hitSound)
 	{
-		audio.clip = hitSound;
-		audio.Play();
+		GetComponent.<AudioSource>().clip = hitSound;
+		GetComponent.<AudioSource>().Play();
 	}
 	//check health and call Die if need to
 	if(health <= 0){
@@ -63,15 +63,15 @@ function Die(){
 	//play death sound if it exists
 	if(deathSound)
 	{
-		audio.clip = deathSound;
-		audio.Play();
+		GetComponent.<AudioSource>().clip = deathSound;
+		GetComponent.<AudioSource>().Play();
 	}
 	print("dead!");
 	playerController.isControllable = false;
 	
 	animationState = GetComponent(Widget_Animation);
 	animationState.PlayDie();
-	yield WaitForSeconds(animation["Die"].length -0.2);
+	yield WaitForSeconds(GetComponent.<Animation>()["Die"].length -0.2);
 	HideCharacter();
 	
 	yield WaitForSeconds(1);

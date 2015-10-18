@@ -42,12 +42,12 @@ function Start ()
 		target = GameObject.FindWithTag("Player").transform;
 	
 	// Setup animations-----------------------------------------------------------------
-	animation.wrapMode = WrapMode.Loop;
-	animation["EBunny_Death"].wrapMode = WrapMode.Once;
+	GetComponent.<Animation>().wrapMode = WrapMode.Loop;
+	GetComponent.<Animation>()["EBunny_Death"].wrapMode = WrapMode.Once;
 
-	animation["EBunny_Attack"].layer = 1;
-	animation["EBunny_Hit"].layer = 3;
-	animation["EBunny_Death"].layer = 5;
+	GetComponent.<Animation>()["EBunny_Attack"].layer = 1;
+	GetComponent.<Animation>()["EBunny_Hit"].layer = 3;
+	GetComponent.<Animation>()["EBunny_Death"].layer = 5;
 		
 	// Rather than placing this in an update function, we can start the AI's behavior now and 
 	//use coroutines to handle the changes
@@ -99,7 +99,7 @@ function Idle ()
 function Attack ()
 {
 	isAttacking = true;
-	animation.Play("EBunny_Attack");
+	GetComponent.<Animation>().Play("EBunny_Attack");
 	
 	// We need to turn to face the player now that he's in range.
 	var angle  = 0.0;
@@ -112,7 +112,7 @@ function Attack ()
 		move = Mathf.Clamp01((90 - angle) / 90);
 		
 		// depending on the angle, start moving
-		animation["EBunny_Attack"].weight = animation["EBunny_Attack"].speed = move;
+		GetComponent.<Animation>()["EBunny_Attack"].weight = GetComponent.<Animation>()["EBunny_Attack"].speed = move;
 		direction = transform.TransformDirection(Vector3.forward * attackSpeed * move);
 		characterController.SimpleMove(direction);
 		
