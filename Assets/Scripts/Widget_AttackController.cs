@@ -16,7 +16,7 @@ namespace GrillbrickStudios
 		public float attackRadius = 2.0f;
 		public float damage = 1.0f;
 
-		public ParticleSystem attackEmitter;
+		public ParticleEmitter attackEmitter;
 		public AudioClip attackSound;
 
 		//---Private---
@@ -100,9 +100,14 @@ namespace GrillbrickStudios
 
 		private IEnumerator PlayParticles()
 		{
+			attackEmitter.emit = true;
+			yield return new WaitForSeconds(attackTime);
+			attackEmitter.emit = false;
+/*
 			attackEmitter.Play();
 			yield return new WaitForSeconds(attackEmitter.duration);
 			attackEmitter.Stop();
+*/
 		}
 	}
 }
