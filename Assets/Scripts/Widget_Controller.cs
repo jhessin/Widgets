@@ -72,7 +72,7 @@ namespace GrillbrickStudios
 					}
 
 					//Apply any Boosted Speed
-					if (Input.GetButton("Boost"))
+					if (Input.GetButton("Fire3"))
 						if (widgetStatus)
 							if (widgetStatus.energy > 0)
 							{
@@ -82,7 +82,7 @@ namespace GrillbrickStudios
 				}
 				
 				//Duck the controller
-				if (Input.GetButton("Duck"))
+				if (Input.GetButton("Fire2"))
 				{
 					controller.height = duckHeight;
 					controller.center = new Vector3(controller.center.x, controller.height/2 + 0.25f, controller.center.z);
@@ -90,14 +90,14 @@ namespace GrillbrickStudios
 					isDucking = true;
 				}
 
-				if (Input.GetButtonUp("Duck"))
+				if (Input.GetButtonUp("Fire2"))
 				{
 					controller.height = normalHeight;
 					controller.center = new Vector3(controller.center.x, controller.height/2, controller.center.z);
 					isDucking = false;
 				}
 
-				if (Input.GetButtonUp("Boost"))
+				if (Input.GetButtonUp("Fire3"))
 				{
 					isBoosting = false;
 				}

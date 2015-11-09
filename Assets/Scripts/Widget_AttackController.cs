@@ -37,7 +37,7 @@ namespace GrillbrickStudios
 
 		public void Update()
 		{
-			if (!busy && Input.GetButtonDown("Attack") && controller.IsGrounded() && !controller.IsMoving())
+			if (!busy && Input.GetButtonDown("Fire1") && controller.IsGrounded() && !controller.IsMoving())
 			{
 				StartCoroutine(DidAttack());
 				busy = true;

@@ -23,7 +23,7 @@ namespace GrillbrickStudios
 
 		public void Update()
 		{
-			if (Input.GetButtonDown("Attack"))
+			if (Input.GetButtonDown("Fire1"))
 			{
 				StopCoroutine("FireLaser");
 				StartCoroutine("FireLaser");
@@ -35,7 +35,7 @@ namespace GrillbrickStudios
 			line.enabled = true;
 			light.enabled = true;
 
-			while (Input.GetButton("Attack"))
+			while (Input.GetButton("Fire1"))
 			{
 				renderer.material.mainTextureOffset = new Vector2(Time.time, Time.time);
 
