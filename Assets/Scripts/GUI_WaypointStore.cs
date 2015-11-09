@@ -27,15 +27,14 @@ namespace GrillbrickStudios
 			if (customSkin)
 				GUI.skin = customSkin;
 
-			if (openStore)
-			{
-				GUI.Box(new Rect(0,0,Screen.width, Screen.height), " ");
-				GUI.Label(new Rect(Screen.width/2 - storeBG.width/2, Screen.height/2 - storeBG.height/2, storeBG.width, storeBG.height), storeBG);
+			if (!openStore) return;
 
-				if (GUI.Button(new Rect(Screen.width/2 - 126, Screen.height - 100, 252, 113), "Close Store"))
-				{
-					StoreFrontToggle();
-				}
+			GUI.Box(new Rect(0,0,Screen.width, Screen.height), " ");
+			GUI.Label(new Rect(Screen.width/2 - storeBG.width/2, Screen.height/2 - storeBG.height/2, storeBG.width, storeBG.height), storeBG);
+
+			if (GUI.Button(new Rect(Screen.width/2 - 126, Screen.height - 100, 252, 113), "Close Store"))
+			{
+				StoreFrontToggle();
 			}
 		}
 

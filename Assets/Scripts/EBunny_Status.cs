@@ -28,13 +28,15 @@ namespace GrillbrickStudios
 		public GameObject pickup2;
 
 		// Private components
-		Animation anim;
-		AudioSource aSource;
+		private Animation anim;
+		private AudioSource aSource;
+		private SkinnedMeshRenderer root;
 
 		public void Awake()
 		{
 			anim = GetComponent<Animation>();
 			aSource = GetComponent<AudioSource>();
+			root = GetComponentInChildren<SkinnedMeshRenderer>();
 		}
 
 		// State Functions---------------
@@ -111,7 +113,7 @@ namespace GrillbrickStudios
 			explosion.emit = true;
 			smoke.emit = true;
 			yield return new WaitForSeconds(0.5f);
-			GameObject.Find("root").GetComponent<SkinnedMeshRenderer>().enabled = false;
+			root.enabled = false;
 			yield return new WaitForSeconds(0.5f);
 			explosion.emit = false;
 			yield return new WaitForSeconds(3.5f);
