@@ -14,7 +14,7 @@ namespace GrillbrickStudios
 		public const int ItemLaser = 3;
 		private ItemCost _costFlight = new ItemCost(1, 4, 4);
 		private ItemCost _costHook = new ItemCost(1, 2, 2);
-		private ItemCost _costLaser = new ItemCost(0, 0, 0);
+		private ItemCost _costLaser = new ItemCost(0, 2, 2);
 
 		private ItemCost _costShield = new ItemCost(1, 1, 1);
 		private GameObject _laser;

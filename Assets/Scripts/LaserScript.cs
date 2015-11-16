@@ -11,6 +11,11 @@ namespace GrillbrickStudios
 		private LineRenderer line;
 		private Light light;
 		private Renderer renderer;
+		
+		public void OnDisable()
+		{
+			light.enabled = false;
+		}
 
 		public void Start()
 		{
@@ -54,7 +59,7 @@ namespace GrillbrickStudios
 					}
 				}
 				else
-					line.SetPosition(1,ray.GetPoint(100));
+					line.SetPosition(1, ray.GetPoint(100));
 
 				yield return null;
 			}

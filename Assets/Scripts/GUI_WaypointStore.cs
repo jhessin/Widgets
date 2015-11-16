@@ -44,6 +44,7 @@ namespace GrillbrickStudios
 						laserTile.width/2f, laserTile.height/2f), laserTile))
 				{
 					BuyLaser();
+					StoreFrontToggle();
 				}
 
 			if (GUI.Button(new Rect(Screen.width/2 - 126, Screen.height - 100, 252, 113), "Close Store"))
