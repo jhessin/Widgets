@@ -7,23 +7,23 @@ namespace GrillbrickStudios
 	[RequireComponent(typeof(LineRenderer))]
 	public class LaserScript : MonoBehaviour
 	{
-		public float laserDamage = 3;
-		private LineRenderer line;
-		private Light light;
-		private Renderer renderer;
+		public float LaserDamage = 3;
+		private LineRenderer _line;
+		private Light _light;
+		private Renderer _renderer;
 		
 		public void OnDisable()
 		{
-			light.enabled = false;
+			_light.enabled = false;
 		}
 
 		public void Start()
 		{
-			line = GetComponent<LineRenderer>();
-			line.enabled = false;
-			light = GetComponent<Light>();
-			light.enabled = false;
-			renderer = line.GetComponent<Renderer>();
+			_line = GetComponent<LineRenderer>();
+			_line.enabled = false;
+			_light = GetComponent<Light>();
+			_light.enabled = false;
+			_renderer = _line.GetComponent<Renderer>();
 		}
 
 		public void Update()
@@ -37,35 +37,35 @@ namespace GrillbrickStudios
 
 		IEnumerator FireLaser()
 		{
-			line.enabled = true;
-			light.enabled = true;
+			_line.enabled = true;
+			_light.enabled = true;
 
 			while (Input.GetButton("Fire1"))
 			{
-				renderer.material.mainTextureOffset = new Vector2(Time.time, Time.time);
+				_renderer.material.mainTextureOffset = new Vector2(Time.time, Time.time);
 
 				Ray ray = new Ray(transform.position, transform.forward);
 				RaycastHit hit;
 
-				line.SetPosition(0, ray.origin);
+				_line.SetPosition(0, ray.origin);
 
 				if (Physics.Raycast(ray, out hit, 100))
 				{
-					line.SetPosition(1, hit.point);
+					_line.SetPosition(1, hit.point);
 					EBunny_Status status = hit.collider.GetComponent<EBunny_Status>();
 					if (status)
 					{
-						status.ApplyDamage(laserDamage);
+						status.ApplyDamage(LaserDamage);
 					}
 				}
 				else
-					line.SetPosition(1, ray.GetPoint(100));
+					_line.SetPosition(1, ray.GetPoint(100));
 
 				yield return null;
 			}
 
-			line.enabled = false;
-			light.enabled = false;
+			_line.enabled = false;
+			_light.enabled = false;
 		}
 	}
 }

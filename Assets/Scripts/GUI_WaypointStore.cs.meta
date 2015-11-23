@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: 9d20341e5db65544285636536bfe47e6
-timeCreated: 1446349783
+timeCreated: 1448254130
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - customSkin: {instanceID: 0}
+  - laserTile: {fileID: 2800000, guid: 48e5634ee242d3a44b06fd9abe90a902, type: 3}
+  - RepairTile: {fileID: 2800000, guid: 4d62be0a3b14edf46928f3f51ab83ba9, type: 3}
+  - EnergyTile: {fileID: 2800000, guid: a3f000f6121df10458583e06fa54e873, type: 3}
+  - storeBG: {fileID: 2800000, guid: fc332c2d5df58164c8d2507d441127d9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

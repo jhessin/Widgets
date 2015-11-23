@@ -12,32 +12,34 @@ namespace GrillbrickStudios
 		public const int ItemHook = 1;
 		public const int ItemFlight = 2;
 		public const int ItemLaser = 3;
+		public const int ItemRepair = 4;
+		public const int ItemEnergy = 5;
 		private ItemCost _costFlight = new ItemCost(1, 4, 4);
 		private ItemCost _costHook = new ItemCost(1, 2, 2);
 		private ItemCost _costLaser = new ItemCost(0, 2, 2);
+		private ItemCost _costRepair = new ItemCost(0, 1, 0);
+		private ItemCost _costEnergy = new ItemCost(0, 0, 1);
 
 		private ItemCost _costShield = new ItemCost(1, 1, 1);
-		private GameObject _laser;
-		private GameObject _taser;
 		private Widget_Inventory _inventory;
+//		private GameObject _laser;
+//		private GameObject _taser;
+		private WeaponManager _weaponManager;
 
 		public void Start()
 		{
-			GameObject widgetPlayer = GameObject.FindWithTag("Player");
+			var widgetPlayer = GameObject.FindWithTag("Player");
 			_inventory = widgetPlayer.GetComponent<Widget_Inventory>();
-			_laser = GameObject.FindGameObjectWithTag("Laser");
-			_taser = GameObject.FindGameObjectWithTag("Taser");
+//			_laser = GameObject.FindGameObjectWithTag("Laser");
+//			_taser = GameObject.FindGameObjectWithTag("Taser");
+			_weaponManager = FindObjectOfType<WeaponManager>();
 
-			DisableAll();
-			EnableTaser();
+			_weaponManager.HasTaser = true;
 		}
 
 		private void EnableTaser()
 		{
-			foreach (EllipsoidParticleEmitter emitter in _taser.GetComponentsInChildren<EllipsoidParticleEmitter>())
-			{
-				emitter.enabled = true;
-			}
+			_weaponManager.HasTaser = true;
 		}
 
 		public void BuyTransformation(int selection)
@@ -60,8 +62,15 @@ namespace GrillbrickStudios
 						break;
 					case ItemLaser:
 						_costLaser.BuyFrom(_inventory);
-						DisableAll();
 						EnableLaser();
+						break;
+					case ItemRepair:
+						_costRepair.BuyFrom(_inventory);
+						_inventory.GetItem(InventoryItem.REPAIRKIT, 1);
+						break;
+					case ItemEnergy:
+						_costEnergy.BuyFrom(_inventory);
+						_inventory.GetItem(InventoryItem.ENERGYPACK, 1);
 						break;
 				}
 			}
@@ -69,29 +78,13 @@ namespace GrillbrickStudios
 
 		private void EnableLaser()
 		{
-			foreach (var mesh in _laser.GetComponentsInChildren<MeshRenderer>())
+			if (_weaponManager.HasLaser)
 			{
-				mesh.enabled = true;
+				_weaponManager.HasDoubleLaser = true;
 			}
-			foreach (var laserScript in _laser.GetComponentsInChildren<LaserScript>())
+			else
 			{
-				laserScript.enabled = true;
-			}
-		}
-
-		private void DisableAll()
-		{
-			foreach (EllipsoidParticleEmitter emitter in _taser.GetComponentsInChildren<EllipsoidParticleEmitter>())
-			{
-				emitter.enabled = false;
-			}
-			foreach (var mesh in _laser.GetComponentsInChildren<MeshRenderer>())
-			{
-				mesh.enabled = false;
-			}
-			foreach (var laserScript in _laser.GetComponentsInChildren<LaserScript>())
-			{
-				laserScript.enabled = false;
+				_weaponManager.HasLaser = true;
 			}
 		}
 
@@ -104,8 +97,6 @@ Flight Transform:  boss_windblade, 4 screws, 4 nuts
 		//called from the Store Purchase Button.  Player must select which upgrade they want, which is passed to this 
 		public bool CheckTransformationBuy(int selection)
 		{
-
-
 			// number of items required to buy for Transformations
 			var bossitem = 0;
 			var screws = 0;
@@ -125,15 +116,19 @@ Flight Transform:  boss_windblade, 4 screws, 4 nuts
 				case ItemLaser:
 					_costLaser.getCost(out bossitem, out screws, out nuts);
 					break;
+				case ItemRepair:
+					_costRepair.getCost(out bossitem, out screws, out nuts);
+					break;
+				case ItemEnergy:
+					_costEnergy.getCost(out bossitem, out screws, out nuts);
+					break;
 				default:
 					return false;
 			}
 
-			if (_inventory.CompareItemCount(InventoryItem.BOSS_TRAY, bossitem) &&
-			    _inventory.CompareItemCount(InventoryItem.SCREW, screws) &&
-			    _inventory.CompareItemCount(InventoryItem.NUT, nuts))
-				return true;
-			return false;
+			return _inventory.CompareItemCount(InventoryItem.BOSS_TRAY, bossitem) &&
+			       _inventory.CompareItemCount(InventoryItem.SCREW, screws) &&
+			       _inventory.CompareItemCount(InventoryItem.NUT, nuts);
 		}
 
 		private struct ItemCost
